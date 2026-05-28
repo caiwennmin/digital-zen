@@ -58,6 +58,7 @@ const Journal = {
     Storage.saveReflection(this.elements.reflection.value.trim());
 
     this.showIndicator(isAutoSave ? "已自动保存 ✅" : "已保存 ✅");
+    if (typeof Auth !== "undefined") Auth.saveCloudData();
   },
 
   showIndicator(msg) {

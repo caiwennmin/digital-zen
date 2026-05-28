@@ -115,6 +115,7 @@ const Timer = {
     App.showToast(this.getCompletionMessage());
 
     if (typeof Stats !== "undefined") Stats.refresh();
+    if (typeof Auth !== "undefined") Auth.saveCloudData();
 
     setTimeout(() => {
       this.remaining = this.totalDuration;

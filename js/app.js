@@ -22,6 +22,7 @@ const App = {
     this.showRandomQuote();
     this.setupResetButton();
 
+    Auth.init();
     Timer.init();
     Journal.init();
     Sounds.init();
