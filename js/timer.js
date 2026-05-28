@@ -4,21 +4,14 @@
    ============================================ */
 
 const Timer = {
-  duration: 25 * 60,        // seconds
+  duration: 25 * 60,
   remaining: 25 * 60,
   totalDuration: 25 * 60,
   mode: "focus",
   isRunning: false,
   intervalId: null,
 
-  elements: {
-    minutes: null,
-    seconds: null,
-    ring: null,
-    toggleBtn: null,
-    resetBtn: null,
-    modeBtns: null,
-  },
+  elements: {},
 
   init() {
     this.elements.minutes = document.getElementById("timer-minutes");
@@ -29,7 +22,6 @@ const Timer = {
     this.elements.modeBtns = document.querySelectorAll(".mode-btn");
     this.elements.timerDisplay = document.querySelector(".timer-display");
 
-    // Restore saved mode
     const settings = Storage.loadSettings();
     if (settings.lastMode && settings.lastDuration) {
       this.mode = settings.lastMode;
@@ -60,14 +52,12 @@ const Timer = {
 
   setMode(mode, duration) {
     this.mode = mode;
-    this.duration = duration;
     this.totalDuration = duration;
     this.remaining = duration;
     this.isRunning = false;
     clearInterval(this.intervalId);
 
     Storage.saveSettings({ lastMode: mode, lastDuration: duration });
-
     this.updateDisplay();
     this.updateRing();
     this.highlightActiveMode();
@@ -76,11 +66,7 @@ const Timer = {
   },
 
   toggle() {
-    if (this.isRunning) {
-      this.pause();
-    } else {
-      this.start();
-    }
+    this.isRunning ? this.pause() : this.start();
   },
 
   start() {
@@ -92,9 +78,7 @@ const Timer = {
       this.updateDisplay();
       this.updateRing();
 
-      if (this.remaining <= 0) {
-        this.complete();
-      }
+      if (this.remaining <= 0) this.complete();
     }, 1000);
   },
 
@@ -120,23 +104,18 @@ const Timer = {
     this.updateDisplay();
     this.updateRing();
 
-    // Record session
     const completedMinutes = Math.floor(this.totalDuration / 60);
     Storage.addSession(completedMinutes, this.mode);
 
-    // Visual feedback
     this.elements.timerDisplay.classList.add("timer-complete");
     setTimeout(() => {
       this.elements.timerDisplay.classList.remove("timer-complete");
     }, 1800);
 
-    // Show notification
     App.showToast(this.getCompletionMessage());
 
-    // Update stats if visible
     if (typeof Stats !== "undefined") Stats.refresh();
 
-    // Auto-reset for next session
     setTimeout(() => {
       this.remaining = this.totalDuration;
       this.updateDisplay();
@@ -147,10 +126,10 @@ const Timer = {
 
   getCompletionMessage() {
     switch (this.mode) {
-      case "focus": return "🍅 专注完成！休息一下吧~";
-      case "shortBreak": return "☕ 休息结束，准备下一轮专注！";
-      case "longBreak": return "🌿 长休结束，精力满满！";
-      default: return "✅ 计时完成！";
+      case "focus": return "专注完成，休息一下吧";
+      case "shortBreak": return "休息结束，准备下一轮";
+      case "longBreak": return "长休结束，精力满满";
+      default: return "计时完成";
     }
   },
 
@@ -163,7 +142,7 @@ const Timer = {
   },
 
   updateRing() {
-    const circumference = 2 * Math.PI * 90; // r=90
+    const circumference = 2 * Math.PI * 90;
     const progress = 1 - (this.remaining / this.totalDuration);
     const offset = circumference * (1 - progress);
     this.elements.ring.style.strokeDasharray = circumference;
@@ -171,23 +150,15 @@ const Timer = {
   },
 
   updateRingColor() {
-    if (this.mode === "focus") {
-      this.elements.ring.classList.remove("break");
-    } else {
-      this.elements.ring.classList.add("break");
-    }
+    this.elements.ring.classList.toggle("break", this.mode !== "focus");
   },
 
   updateToggleButton() {
+    const labels = { focus: "专注", shortBreak: "小憩", longBreak: "长休" };
     if (this.isRunning) {
-      this.elements.toggleBtn.textContent = "⏸ 暂停";
-      this.elements.toggleBtn.style.background =
-        "linear-gradient(135deg, var(--accent2), #8b5cf6)";
+      this.elements.toggleBtn.textContent = "暂停";
     } else {
-      this.elements.toggleBtn.textContent = "▶ 开始" +
-        (this.mode === "focus" ? "专注" : this.mode === "shortBreak" ? "小憩" : "长休");
-      this.elements.toggleBtn.style.background =
-        "linear-gradient(135deg, var(--accent), #34d399)";
+      this.elements.toggleBtn.textContent = `开始${labels[this.mode] || ""}`;
     }
   },
 

@@ -7,8 +7,8 @@ const App = {
   quotes: [
     "「专注是新的超能力。」— Cal Newport",
     "「你关注什么，你就成为什么。」— 一行禅师",
-    "「深度工作是人类在这个数字化时代最后的护城河。」",
-    "「少即是多，慢即是快。」— 禅语",
+    "「深度工作是人类在数字化时代最后的护城河。」",
+    "「少即是多，慢即是快。」",
     "「每一次呼吸都是新的开始。」",
     "「你的注意力是你最宝贵的资产。」",
     "「在信息洪流中保持清醒，本身就是一种修行。」",
@@ -22,12 +22,10 @@ const App = {
     this.showRandomQuote();
     this.setupResetButton();
 
-    // Initialize sub-modules
     Timer.init();
     Journal.init();
     Sounds.init();
 
-    // Refresh stats when switching to stats view
     document.querySelector('[data-view="stats"]').addEventListener("click", () => {
       Stats.refresh();
     });
@@ -48,26 +46,16 @@ const App = {
         const viewEl = document.getElementById("view-" + targetView);
         if (viewEl) viewEl.classList.add("active");
 
-        // Refresh stats when navigating to stats
-        if (targetView === "stats") {
-          Stats.refresh();
-        }
+        if (targetView === "stats") Stats.refresh();
 
-        // Update page title
-        const titles = {
-          timer: "⏱ 专注 · Digital Zen",
-          journal: "📝 日记 · Digital Zen",
-          stats: "📊 统计 · Digital Zen",
-        };
-        document.title = titles[targetView] || "Digital Zen · 数字禅";
+        document.title = "Digital Zen";
       });
     });
   },
 
   showRandomQuote() {
     const quoteEl = document.getElementById("daily-quote");
-    const randomIndex = Math.floor(Math.random() * this.quotes.length);
-    quoteEl.textContent = this.quotes[randomIndex];
+    quoteEl.textContent = this.quotes[Math.floor(Math.random() * this.quotes.length)];
   },
 
   setupResetButton() {
@@ -78,7 +66,6 @@ const App = {
   },
 
   showToast(message, duration = 2500) {
-    // Remove existing toast
     const existing = document.querySelector(".toast");
     if (existing) existing.remove();
 
@@ -87,17 +74,13 @@ const App = {
     toast.textContent = message;
     document.body.appendChild(toast);
 
-    // Trigger animation
-    requestAnimationFrame(() => {
-      toast.classList.add("show");
-    });
+    requestAnimationFrame(() => toast.classList.add("show"));
 
     setTimeout(() => {
       toast.classList.remove("show");
-      setTimeout(() => toast.remove(), 400);
+      setTimeout(() => toast.remove(), 250);
     }, duration);
   },
 };
 
-// Boot
 document.addEventListener("DOMContentLoaded", () => App.init());

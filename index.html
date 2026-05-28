@@ -3,36 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Digital Zen · 数字禅 — 在信息洪流中，找回你的深度专注力">
-<meta name="theme-color" content="#1a1a2e">
-<title>Digital Zen · 数字禅</title>
+<meta name="description" content="Digital Zen — 在信息洪流中，找回你的深度专注力。一个正念生产力伴侣。">
+<meta name="theme-color" content="#faf8f5">
+<title>Digital Zen</title>
 <link rel="stylesheet" href="css/main.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧘</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="app-container">
-  <!-- Header -->
+
   <header class="header">
     <div class="logo">
-      <span class="logo-icon">🧘</span>
-      <h1 class="logo-text">Digital Zen</h1>
+      <span class="logo-text">Digital Zen</span>
       <span class="logo-sub">数字禅</span>
     </div>
     <nav class="nav">
-      <button class="nav-btn active" data-view="timer">⏱ 专注</button>
-      <button class="nav-btn" data-view="journal">📝 日记</button>
-      <button class="nav-btn" data-view="stats">📊 统计</button>
+      <button class="nav-btn active" data-view="timer">专注</button>
+      <button class="nav-btn" data-view="journal">日记</button>
+      <button class="nav-btn" data-view="stats">统计</button>
     </nav>
   </header>
 
-  <!-- Timer View -->
+  <!-- -------- Timer -------- -->
   <main id="view-timer" class="view active">
     <div class="timer-card">
       <div class="timer-mode-selector">
-        <button class="mode-btn active" data-mode="focus" data-duration="25">🍅 专注 25min</button>
-        <button class="mode-btn" data-mode="shortBreak" data-duration="5">☕ 小憩 5min</button>
-        <button class="mode-btn" data-mode="longBreak" data-duration="15">🌿 长休 15min</button>
+        <button class="mode-btn active" data-mode="focus" data-duration="25">专注 25 分钟</button>
+        <button class="mode-btn" data-mode="shortBreak" data-duration="5">小憩 5 分钟</button>
+        <button class="mode-btn" data-mode="longBreak" data-duration="15">长休 15 分钟</button>
       </div>
+
       <div class="timer-display">
         <svg class="timer-ring" viewBox="0 0 200 200">
           <circle class="ring-bg" cx="100" cy="100" r="90"/>
@@ -42,88 +44,97 @@
           <span id="timer-minutes">25</span>:<span id="timer-seconds">00</span>
         </div>
       </div>
+
       <div class="timer-controls">
-        <button id="btn-timer-toggle" class="btn-primary">▶ 开始专注</button>
-        <button id="btn-timer-reset" class="btn-secondary">↺ 重置</button>
+        <button id="btn-timer-toggle" class="btn-primary">开始专注</button>
+        <button id="btn-timer-reset" class="btn-secondary">重置</button>
       </div>
+
       <div class="ambient-sounds">
-        <span class="sound-label">🔊 环境音:</span>
-        <button class="sound-btn" data-sound="rain">🌧 雨声</button>
-        <button class="sound-btn" data-sound="forest">🌲 森林</button>
-        <button class="sound-btn" data-sound="cafe">☕ 咖啡馆</button>
-        <button class="sound-btn" data-sound="none">🔇 静音</button>
+        <span class="sound-label">环境音</span>
+        <button class="sound-btn" data-sound="rain">雨声</button>
+        <button class="sound-btn" data-sound="forest">森林</button>
+        <button class="sound-btn" data-sound="cafe">咖啡馆</button>
+        <button class="sound-btn active" data-sound="none">静音</button>
       </div>
     </div>
   </main>
 
-  <!-- Journal View -->
+  <!-- -------- Journal -------- -->
   <main id="view-journal" class="view">
     <div class="journal-card">
-      <h2 class="section-title">📝 每日意图</h2>
-      <p class="section-desc">在开始一天之前，写下你今天最重要的三件事</p>
+      <h2 class="section-title">每日意图</h2>
+      <p class="section-desc">一天开始前，写下今天最重要的三件事。</p>
+
       <div class="journal-intentions" id="journal-intentions">
         <div class="intention-item">
           <span class="intention-num">01</span>
-          <input type="text" class="intention-input" placeholder="今天最重要的一件事..." maxlength="80">
+          <input type="text" class="intention-input" placeholder="今天最重要的一件事…" maxlength="80">
         </div>
         <div class="intention-item">
           <span class="intention-num">02</span>
-          <input type="text" class="intention-input" placeholder="第二件重要的事..." maxlength="80">
+          <input type="text" class="intention-input" placeholder="第二件…" maxlength="80">
         </div>
         <div class="intention-item">
           <span class="intention-num">03</span>
-          <input type="text" class="intention-input" placeholder="第三件重要的事..." maxlength="80">
+          <input type="text" class="intention-input" placeholder="第三件…" maxlength="80">
         </div>
       </div>
+
       <div class="journal-reflection">
-        <h3>🌙 晚间反思</h3>
-        <textarea class="reflection-input" placeholder="今天有什么让你感到感恩？学到了什么？明天可以做得更好吗？" rows="4" maxlength="500"></textarea>
+        <h3>晚间反思</h3>
+        <textarea class="reflection-input" placeholder="今天有什么让你感恩？学到了什么？明天哪里可以做得更好？" rows="4" maxlength="500"></textarea>
       </div>
-      <button id="btn-save-journal" class="btn-primary">💾 保存日记</button>
+
+      <button id="btn-save-journal" class="btn-primary">保存日记</button>
       <p class="save-indicator" id="journal-save-indicator"></p>
     </div>
   </main>
 
-  <!-- Stats View -->
+  <!-- -------- Stats -------- -->
   <main id="view-stats" class="view">
     <div class="stats-card">
-      <h2 class="section-title">📊 你的数字禅修数据</h2>
+      <h2 class="section-title">你的数据</h2>
+      <p class="section-desc">每一分钟的专注，都算数。</p>
+
       <div class="stats-grid">
         <div class="stat-box">
-          <span class="stat-icon">🍅</span>
+          <span class="stat-icon">&circlearrowright;</span>
           <span class="stat-value" id="stat-total-sessions">0</span>
-          <span class="stat-label">专注会话</span>
+          <span class="stat-label">专注次数</span>
         </div>
         <div class="stat-box">
-          <span class="stat-icon">⏱</span>
+          <span class="stat-icon">&ominus;</span>
           <span class="stat-value" id="stat-total-minutes">0</span>
           <span class="stat-label">专注分钟</span>
         </div>
         <div class="stat-box">
-          <span class="stat-icon">🔥</span>
+          <span class="stat-icon">&apid;</span>
           <span class="stat-value" id="stat-streak">0</span>
           <span class="stat-label">连续天数</span>
         </div>
         <div class="stat-box">
-          <span class="stat-icon">📝</span>
+          <span class="stat-icon">&compfn;</span>
           <span class="stat-value" id="stat-journal-entries">0</span>
           <span class="stat-label">日记篇数</span>
         </div>
       </div>
+
       <div class="stats-chart-container" id="weekly-chart">
-        <h3>📈 本周专注趋势</h3>
+        <h3>本周趋势</h3>
         <div class="chart-placeholder">
           <div class="chart-bars" id="chart-bars"></div>
         </div>
       </div>
-      <button id="btn-reset-stats" class="btn-secondary btn-danger">🗑 重置所有数据</button>
+
+      <button id="btn-reset-stats" class="btn-secondary btn-danger">重置所有数据</button>
     </div>
   </main>
 
-  <!-- Motivational Quote -->
   <footer class="footer">
     <p class="quote" id="daily-quote"></p>
   </footer>
+
 </div>
 
 <script src="js/storage.js"></script>
